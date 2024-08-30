@@ -1,5 +1,5 @@
 {% set name = "dydxprotocol-v4-proto-py" %}
-{% set version = "5.0.6" %}
+{% set version = "6.0.2" %}
 
 package:
   name: dydxprotocol-v4-proto-split
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/dydxprotocol/v4-chain/archive/refs/tags/protocol/v{{ version }}.tar.gz
-  sha256: c787e4221bf65546996876b795efd2268eae40b1cfc3adcf74277c63883dc712
+  sha256: e1c8d175bcf54bca36465c65efa276783fb2c0deee592c4d78639941730702c5
   patches:
     - patches/0001-win-docker-experimental.patch  # [win]
 
