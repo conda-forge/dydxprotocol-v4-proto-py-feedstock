@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2022
 RUN powershell -Command "Set-ExecutionPolicy Bypass -Scope Process -Force"
 RUN powershell -Command "[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072"
 RUN powershell -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
-RUN powershell -Command "choco install protobuf -y"
+RUN powershell -Command "choco search protobuf | Select-String -Pattern 'protobuf' -Quiet; if ($?) { choco install protobuf -y } else { Write-Error 'protobuf package not found' }"
 RUN powershell -Command "choco install buf -y"
 
 WORKDIR /workspace
