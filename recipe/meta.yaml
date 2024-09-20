@@ -78,6 +78,45 @@ outputs:
       commands:
         - pip check
 
+  # Alias
+  - name: v4_proto
+    requirements:
+      run:
+        - {{ pin_subpackage('dydxprotocol-v4-proto-py', exact=True) }}
+    test:
+      imports:
+        - v4_proto
+      requires:
+        - pip
+      commands:
+        - pip check
+
+  # Alias
+  - name: dydx-v4-proto
+    requirements:
+      run:
+        - {{ pin_subpackage('dydxprotocol-v4-proto-py', exact=True) }}
+    test:
+      imports:
+        - v4_proto
+      requires:
+        - pip
+      commands:
+        - pip check
+
+  # Alias
+  - name: dydx_v4_proto
+    requirements:
+      run:
+        - {{ pin_subpackage('dydxprotocol-v4-proto-py', exact=True) }}
+    test:
+      imports:
+        - v4_proto
+      requires:
+        - pip
+      commands:
+        - pip check
+
 about:
   home: https://github.com/dydxprotocol/v4-chain
   summary: 'The dYdX v4 software (the ”dYdX Chain”) is a sovereign blockchain software built using Cosmos SDK and CometBFT.'
