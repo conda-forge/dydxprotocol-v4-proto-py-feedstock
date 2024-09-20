@@ -8,7 +8,7 @@ function Update-Makefile {
     $updatedContent | Out-File -FilePath $MakefilePath -Encoding utf8
 }
 
-Copy-Item -Path "$env:RECIPE_DIR/Dockerfile.windows" -Destination "$env:SRC_DIR/Dockerfile" -Force
+Copy-Item -Path "$env:RECIPE_DIR/helpers/Dockerfile.windows" -Destination "$env:SRC_DIR/Dockerfile" -Force
 
 Get-Content -Path "$env:SRC_DIR/Dockerfile" -Raw
 
