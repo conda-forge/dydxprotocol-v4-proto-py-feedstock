@@ -9,7 +9,10 @@ RUN powershell -Command `
 WORKDIR /workspace
 "@ | Out-File -FilePath $env:SRC_DIR/Dockerfile -Encoding utf8
 
-docker build -t local/proto-builder:latest .
+# Inspect the Dockerfile
+Get-Content -Path $env:SRC_DIR/Dockerfile -Raw
+# Build the Docker image
+docker build -t local/proto-builder:latest $env:SRC_DIR
 
 $makefileContent = Get-Content -Path Makefile -Raw
 $updatedContent = $makefileContent -replace 'protoImageName=ghcr.io/cosmos/proto-builder:\$\(protoVer\)', 'protoImageName=local/proto-builder:latest'
