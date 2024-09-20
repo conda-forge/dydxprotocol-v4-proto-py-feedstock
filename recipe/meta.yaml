@@ -12,7 +12,7 @@ source:
     - patches/0001-win-docker-experimental.patch  # [win]
 
 build:
-  number: 0
+  number: 1
   # Windows needs docker in experimental mode to build the proto files
   skip: true  # [win]
 
@@ -37,6 +37,7 @@ outputs:
       host:
         - pip
         - python >=3.9
+        - setuptools
       run:
         - grpcio-tools >=1.54
         - grpcio >=1.54
