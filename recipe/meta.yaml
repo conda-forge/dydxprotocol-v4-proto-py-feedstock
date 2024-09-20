@@ -20,7 +20,7 @@ requirements:
   build:
     - docker  # [win]
     - make
-    - sed
+    - sed  # [unix]
   host:
     - buf
     - grpcio-tools >=1.54
