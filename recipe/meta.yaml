@@ -1,5 +1,5 @@
 {% set name = "dydxprotocol-v4-proto-py" %}
-{% set version = "6.0.3" %}
+{% set version = "5.2.1" %}
 
 package:
   name: dydxprotocol-v4-proto-split
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/dydxprotocol/v4-chain/archive/refs/tags/protocol/v{{ version }}.tar.gz
-  sha256: db7be105d5016fb1b3265b301356698f0d4ab10b367d0d06642913a0775d73df
+  sha256: ea8177565a62f6d28399a90d429a3452bc202cd1712448aef6d97cc020d8a57d
   patches:
     - patches/0001-win-docker-experimental.patch  # [win]
 
@@ -50,7 +50,7 @@ outputs:
       commands:
         - pip check
       downstreams:
-        - dydxprotocol-v4-client-py
+        - dydx-v4-client-py
 
   # - Naming conversion
   - name: dydxprotocol_v4_proto_py
