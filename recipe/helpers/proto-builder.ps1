@@ -7,7 +7,7 @@ RUN powershell -Command `
     choco install protobuf -y; `
     choco install buf -y
 WORKDIR /workspace
-"@ | Out-File -FilePath Dockerfile.windows -Encoding utf8
+"@ | Out-File -FilePath $SRC_DIR\Dockerfile -Encoding utf8
 
 docker build -t local/proto-builder:latest .
 
