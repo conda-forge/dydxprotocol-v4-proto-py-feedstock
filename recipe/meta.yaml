@@ -1,5 +1,5 @@
 {% set name = "dydxprotocol-v4-proto-py" %}
-{% set version = "6.0.3" %}
+{% set version = "5.2.1" %}
 
 package:
   name: dydxprotocol-v4-proto-split
@@ -50,7 +50,7 @@ outputs:
       commands:
         - pip check
       downstreams:
-        - dydxprotocol-v4-client-py
+        - dydx-v4-client-py
 
   # - Naming conversion
   - name: dydxprotocol_v4_proto_py
