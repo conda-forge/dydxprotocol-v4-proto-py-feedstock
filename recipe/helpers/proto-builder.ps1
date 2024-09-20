@@ -1,19 +1,3 @@
-function Set-Dockerfile {
-    param (
-        [string]$FilePath
-    )
-    @"
-FROM mcr.microsoft.com/windows/servercore:ltsc2022
-RUN powershell -Command `
-    `"Set-ExecutionPolicy Bypass -Scope Process -Force; `
-    `[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; `
-    `iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); `
-    `choco install protobuf -y; `
-    `choco install buf -y`"
-WORKDIR /workspace
-"@ | Out-File -FilePath $FilePath -Encoding utf8
-}
-
 function Update-Makefile {
     param (
         [string]$MakefilePath
@@ -24,7 +8,8 @@ function Update-Makefile {
     $updatedContent | Out-File -FilePath $MakefilePath -Encoding utf8
 }
 
-Set-Dockerfile -FilePath "$env:SRC_DIR/Dockerfile"
+Copy-Item -Path "$env:RECIPE_DIR/Dockerfile.windows" -Destination "$env:SRC_DIR/Dockerfile" -Force
+
 Get-Content -Path "$env:SRC_DIR/Dockerfile" -Raw
 
 docker build -t local/proto-builder:latest $env:SRC_DIR
