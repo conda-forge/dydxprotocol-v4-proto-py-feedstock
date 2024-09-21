@@ -1,6 +1,7 @@
 {% set name = "dydxprotocol-v4-proto-py" %}
 {% set version = "6.0.3" %}
 
+{% set posix = 'm2-' if win else '' %}
 package:
   name: dydxprotocol-v4-proto-split
   version: {{ version }}
@@ -18,10 +19,10 @@ build:
 
 requirements:
   build:
-    - make  # [unix]
-    - m2-make  # [win]
+    - {{ posix }}base  # [win]
+    - {{ posix }}make
+    - {{ posix }}sed
     - perl
-    - sed  # [unix]
   host:
     - buf
     - grpcio-tools >=1.54

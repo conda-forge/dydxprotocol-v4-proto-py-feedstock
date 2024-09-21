@@ -13,14 +13,3 @@ set MSYS2_PATH_TYPE=inherit
 set CHERE_INVOKING=1
 bash -lc "./conda_build.sh"
 if errorlevel 1 exit 1
-
-:: @echo on
-:: setlocal enabledelayedexpansion
-::
-:: cd %SRC_DIR%
-::
-:: powershell -Command "(Get-Content %SRC_DIR%/v4-proto-py/setup.py) -replace 'version=\"0.0.0\"', 'version=\"%PKG_VERSION%\"' | Set-Content %SRC_DIR%/v4-proto-py/setup.py"
-:: if errorlevel 1 exit 1
-::
-:: bash -c make -e -w debug -f %SRC_DIR%\\Makefile v4-proto-py-gen
-:: if errorlevel 1 exit 1
