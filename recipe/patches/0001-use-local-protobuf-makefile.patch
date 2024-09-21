@@ -32,5 +32,5 @@
 @@ -42,3 +37,3 @@
  	done;
 -	perl -i -pe 's/^from (?!google\.protobuf)([^ ]*) import ([^ ]*)_pb2 as ([^ ]*)$$/from v4_proto.\1 import \2_pb2 as \3/' $$(find ./v4-proto-py/v4_proto -type f \( -name '*_pb2.py' -o -name '*_pb2_grpc.py' -o -name '*_pb2.pyi' -o -name '*_pb2_grpc.pyi' \))
-+	find ./v4-proto-py/v4_proto -type f \( -name '*_pb2.py' -o -name '*_pb2_grpc.py' -o -name '*_pb2.pyi' -o -name '*_pb2_grpc.pyi' \) | xargs -n 1 perl -i -pe 's/^from (?!google\.protobuf)([^ ]*) import ([^ ]*)_pb2 as ([^ ]*)$/from v4_proto.\1 import \2_pb2 as \3/'
++	find ./v4-proto-py/v4_proto -type f \( -name '*_pb2.py' -o -name '*_pb2_grpc.py' -o -name '*_pb2.pyi' -o -name '*_pb2_grpc.pyi' \) | xargs -n 1 perl -i -pe 's@^from (?!google\.protobuf)([^ ]*) import ([^ ]*)_pb2 as ([^ ]*)$$@from v4_proto.\1 import \2_pb2 as \3@'
 
