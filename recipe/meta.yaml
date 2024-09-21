@@ -18,7 +18,8 @@ build:
 
 requirements:
   build:
-    - make
+    - make  # [unix]
+    - m2-make  # [win]
     - sed  # [unix]
   host:
     - buf
