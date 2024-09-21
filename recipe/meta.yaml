@@ -22,9 +22,9 @@ requirements:
     - {{ posix }}base  # [win]
     - {{ posix }}make
     - {{ posix }}sed
+    - buf
     - perl
   host:
-    - buf
     - grpcio-tools >=1.54
     - grpcio >=1.54
     - protobuf >=4.23
