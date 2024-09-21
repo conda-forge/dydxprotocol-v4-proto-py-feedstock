@@ -9,7 +9,7 @@ source:
   url: https://github.com/dydxprotocol/v4-chain/archive/refs/tags/protocol/v{{ version }}.tar.gz
   sha256: db7be105d5016fb1b3265b301356698f0d4ab10b367d0d06642913a0775d73df
   patches:
-    - patches/0001-win-docker-experimental.patch  # [win]
+    - patches/0001-use-local-protobuf-makefile.patch
 
 build:
   number: 1
@@ -18,13 +18,13 @@ build:
 
 requirements:
   build:
-    - docker  # [win]
     - make
     - sed  # [unix]
   host:
     - buf
     - grpcio-tools >=1.54
     - grpcio >=1.54
+    - protobuf >=4.23
     - python >=3.9
 
 outputs:
