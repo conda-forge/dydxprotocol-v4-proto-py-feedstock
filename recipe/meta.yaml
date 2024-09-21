@@ -14,8 +14,6 @@ source:
 
 build:
   number: 1
-  # Windows needs docker in experimental mode to build the proto files
-  # skip: true  # [win]
 
 requirements:
   build:
@@ -54,7 +52,7 @@ outputs:
       commands:
         - pip check
       downstreams:
-        - dydxprotocol-v4-client-py
+        - dydx-v4-client
 
   # - Naming conversion
   - name: dydxprotocol_v4_proto_py
