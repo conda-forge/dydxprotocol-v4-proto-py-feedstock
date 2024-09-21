@@ -24,3 +24,8 @@
 -	@$(protoImage) buf breaking --against .git#branch=$$(git merge-base HEAD origin/main)
 +	@buf breaking --against .git#branch=$$(git merge-base HEAD origin/main)
 
+@@ -35,3 +30,3 @@
+ 	@for dir in $(PROTO_DIRS); do \
+-		python3 -m grpc_tools.protoc \
++		${PYTHON} -m grpc_tools.protoc \
+ 		-I .proto-export-deps \
