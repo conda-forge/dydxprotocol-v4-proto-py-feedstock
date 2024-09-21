@@ -20,6 +20,7 @@ requirements:
   build:
     - make  # [unix]
     - m2-make  # [win]
+    - perl
     - sed  # [unix]
   host:
     - buf
