@@ -13,13 +13,13 @@ source:
     - patches/0001-use-local-protobuf-makefile.patch
 
 build:
+  noarch: python
   number: 1
 
 requirements:
   build:
-    - {{ posix }}base  # [win]
-    - {{ posix }}make
-    - {{ posix }}sed
+    - make
+    - sed
     - buf
     - perl
   host:
@@ -30,10 +30,7 @@ requirements:
 
 outputs:
   - name: dydxprotocol-v4-proto-py
-    script: install-py.sh  # [unix]
-    script: install-py.bat  # [win]
-    build:
-      noarch: python
+    script: install-py.sh
     requirements:
       host:
         - pip
