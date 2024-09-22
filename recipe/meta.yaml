@@ -1,7 +1,6 @@
 {% set name = "dydxprotocol-v4-proto-py" %}
 {% set version = "6.0.3" %}
 
-{% set posix = 'm2-' if win else '' %}
 package:
   name: dydxprotocol-v4-proto-split
   version: {{ version }}
@@ -31,6 +30,8 @@ requirements:
 outputs:
   - name: dydxprotocol-v4-proto-py
     script: install-py.sh
+    build:
+      noarch: python
     requirements:
       host:
         - pip
@@ -53,6 +54,8 @@ outputs:
 
   # - Naming conversion
   - name: dydxprotocol_v4_proto_py
+    build:
+      noarch: python
     requirements:
       run:
         - {{ pin_subpackage('dydxprotocol-v4-proto-py', exact=True) }}
@@ -66,6 +69,8 @@ outputs:
 
   # Package name required by v4-client upstream pyproject.toml
   - name: v4-proto
+    build:
+      noarch: python
     requirements:
       run:
         - {{ pin_subpackage('dydxprotocol-v4-proto-py', exact=True) }}
@@ -79,6 +84,8 @@ outputs:
 
   # Alias
   - name: v4_proto
+    build:
+      noarch: python
     requirements:
       run:
         - {{ pin_subpackage('dydxprotocol-v4-proto-py', exact=True) }}
@@ -92,6 +99,8 @@ outputs:
 
   # Alias
   - name: dydx-v4-proto
+    build:
+      noarch: python
     requirements:
       run:
         - {{ pin_subpackage('dydxprotocol-v4-proto-py', exact=True) }}
@@ -105,6 +114,8 @@ outputs:
 
   # Alias
   - name: dydx_v4_proto
+    build:
+      noarch: python
     requirements:
       run:
         - {{ pin_subpackage('dydxprotocol-v4-proto-py', exact=True) }}
