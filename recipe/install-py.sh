@@ -4,7 +4,7 @@ set -ex
 
 # Install
 pushd v4-proto-py
-  ${PYTHON} -m pip install . \
+  ${PYTHON} -m pip install . -vv \
     --no-build-isolation \
     --no-deps \
     --only-binary :all: \

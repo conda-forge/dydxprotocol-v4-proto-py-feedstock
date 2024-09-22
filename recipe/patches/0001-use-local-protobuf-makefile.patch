@@ -1,0 +1,37 @@
+--- Makefile.orig   2024-07-19 14:52:16.008520276 -0500
++++ Makefile        2024-07-19 14:54:03.834496484 -0500
+@@ -1,11 +1,6 @@
+-DOCKER := $(shell which docker)
+-protoVer=0.14.0
+-protoImageName=ghcr.io/cosmos/proto-builder:$(protoVer)
+-protoImage=$(DOCKER) run --rm -v $(CURDIR):/workspace --workdir /workspace $(protoImageName)
+-
+ proto-format:
+-	@$(protoImage) find ./proto -name "*.proto" -exec clang-format -i {} \;
++	@find ./proto -name "*.proto" -exec clang-format -i {} \;
+
+ proto-lint:
+-	@$(protoImage) buf lint --error-format=json
++	@buf lint --error-format=json
+
+@@ -13,3 +8,3 @@
+ 	@echo "Generating Protobuf files"
+-	@$(protoImage) sh ./protocol/scripts/protocgen.sh
++	@sh ./protocol/scripts/protocgen.sh
+
+@@ -17,3 +12,3 @@
+ 	@rm -rf ./.proto-export
+-	@$(protoImage) buf breaking --against .git#branch=$$(git merge-base HEAD origin/main)
++	@buf breaking --against .git#branch=$$(git merge-base HEAD origin/main)
+
+@@ -35,3 +30,3 @@
+ 	@for dir in $(PROTO_DIRS); do \
+-		python3 -m grpc_tools.protoc \
++		${PYTHON} -m grpc_tools.protoc \
+ 		-I .proto-export-deps \
+@@ -42,3 +37,4 @@
+ 	done;
+-	perl -i -pe 's/^from (?!google\.protobuf)([^ ]*) import ([^ ]*)_pb2 as ([^ ]*)$$/from v4_proto.\1 import \2_pb2 as \3/' $$(find ./v4-proto-py/v4_proto -type f \( -name '*_pb2.py' -o -name '*_pb2_grpc.py' -o -name '*_pb2.pyi' -o -name '*_pb2_grpc.pyi' \))
++	find ./v4-proto-py/v4_proto -type f \( -name '*_pb2.py' -o -name '*_pb2_grpc.py' -o -name '*_pb2.pyi' -o -name '*_pb2_grpc.pyi' \) | xargs -n 1 perl -i.bak -pe 's@^from (?!google\.protobuf)([^ ]*) import ([^ ]*)_pb2 as ([^ ]*)$$@from v4_proto.\1 import \2_pb2 as \3@'
++	find ./v4-proto-py/v4_proto -type f -name '*.bak' -delete
+
