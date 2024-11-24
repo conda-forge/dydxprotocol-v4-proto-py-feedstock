@@ -1,5 +1,5 @@
 {% set name = "dydxprotocol-v4-proto-py" %}
-{% set version = "7.0.2" %}
+{% set version = "7.0.5" %}
 
 package:
   name: dydxprotocol-v4-proto-split
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/dydxprotocol/v4-chain/archive/refs/tags/protocol/v{{ version }}.tar.gz
-  sha256: bbc67bd04ef3487625692da0a2d7bcc74f04b6206ecb0b0aa874f866d20f2cfc
+  sha256: da7e3686d21bebf81f0f5dcf19996587e823559bc16fdeb981642729f11156b6
   patches:
     - patches/0001-use-local-protobuf-makefile.patch
 
