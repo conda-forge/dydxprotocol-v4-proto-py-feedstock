@@ -13,7 +13,7 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -25,7 +25,7 @@ requirements:
     - grpcio-tools >=1.54
     - grpcio >=1.54
     - protobuf >=4.23
-    - python >=3.9
+    - python {{ python_min }}
 
 outputs:
   - name: dydxprotocol-v4-proto-py
@@ -35,18 +35,19 @@ outputs:
     requirements:
       host:
         - pip
-        - python >=3.9
+        - python {{ python_min }}
         - setuptools
       run:
         - grpcio-tools >=1.54
         - grpcio >=1.54
         - protobuf >=4.23
-        - python >=3.9
+        - python >={{ python_min }}
     test:
       imports:
         - v4_proto
       requires:
         - pip
+        - python {{ python_min }}
       commands:
         - pip check
       downstreams:
@@ -64,6 +65,7 @@ outputs:
         - v4_proto
       requires:
         - pip
+        - python {{ python_min }}
       commands:
         - pip check
 
@@ -79,6 +81,7 @@ outputs:
         - v4_proto
       requires:
         - pip
+        - python {{ python_min }}
       commands:
         - pip check
 
@@ -94,6 +97,7 @@ outputs:
         - v4_proto
       requires:
         - pip
+        - python {{ python_min }}
       commands:
         - pip check
 
@@ -109,6 +113,7 @@ outputs:
         - v4_proto
       requires:
         - pip
+        - python {{ python_min }}
       commands:
         - pip check
 
@@ -124,6 +129,7 @@ outputs:
         - v4_proto
       requires:
         - pip
+        - python {{ python_min }}
       commands:
         - pip check
 
