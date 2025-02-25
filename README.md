@@ -36,6 +36,7 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-dydx--v4--proto-green.svg)](https://anaconda.org/conda-forge/dydx-v4-proto) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/dydx-v4-proto.svg)](https://anaconda.org/conda-forge/dydx-v4-proto) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/dydx-v4-proto.svg)](https://anaconda.org/conda-forge/dydx-v4-proto) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/dydx-v4-proto.svg)](https://anaconda.org/conda-forge/dydx-v4-proto) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-dydx_v4_proto-green.svg)](https://anaconda.org/conda-forge/dydx_v4_proto) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/dydx_v4_proto.svg)](https://anaconda.org/conda-forge/dydx_v4_proto) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/dydx_v4_proto.svg)](https://anaconda.org/conda-forge/dydx_v4_proto) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/dydx_v4_proto.svg)](https://anaconda.org/conda-forge/dydx_v4_proto) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-dydxprotocol--v4--proto--py-green.svg)](https://anaconda.org/conda-forge/dydxprotocol-v4-proto-py) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/dydxprotocol-v4-proto-py.svg)](https://anaconda.org/conda-forge/dydxprotocol-v4-proto-py) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/dydxprotocol-v4-proto-py.svg)](https://anaconda.org/conda-forge/dydxprotocol-v4-proto-py) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/dydxprotocol-v4-proto-py.svg)](https://anaconda.org/conda-forge/dydxprotocol-v4-proto-py) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-dydxprotocol--v4--proto--py--bypass--sdk-green.svg)](https://anaconda.org/conda-forge/dydxprotocol-v4-proto-py-bypass-sdk) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/dydxprotocol-v4-proto-py-bypass-sdk.svg)](https://anaconda.org/conda-forge/dydxprotocol-v4-proto-py-bypass-sdk) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/dydxprotocol-v4-proto-py-bypass-sdk.svg)](https://anaconda.org/conda-forge/dydxprotocol-v4-proto-py-bypass-sdk) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/dydxprotocol-v4-proto-py-bypass-sdk.svg)](https://anaconda.org/conda-forge/dydxprotocol-v4-proto-py-bypass-sdk) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-dydxprotocol_v4_proto_py-green.svg)](https://anaconda.org/conda-forge/dydxprotocol_v4_proto_py) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/dydxprotocol_v4_proto_py.svg)](https://anaconda.org/conda-forge/dydxprotocol_v4_proto_py) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/dydxprotocol_v4_proto_py.svg)](https://anaconda.org/conda-forge/dydxprotocol_v4_proto_py) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/dydxprotocol_v4_proto_py.svg)](https://anaconda.org/conda-forge/dydxprotocol_v4_proto_py) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-v4--proto-green.svg)](https://anaconda.org/conda-forge/v4-proto) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/v4-proto.svg)](https://anaconda.org/conda-forge/v4-proto) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/v4-proto.svg)](https://anaconda.org/conda-forge/v4-proto) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/v4-proto.svg)](https://anaconda.org/conda-forge/v4-proto) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-v4_proto-green.svg)](https://anaconda.org/conda-forge/v4_proto) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/v4_proto.svg)](https://anaconda.org/conda-forge/v4_proto) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/v4_proto.svg)](https://anaconda.org/conda-forge/v4_proto) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/v4_proto.svg)](https://anaconda.org/conda-forge/v4_proto) |
@@ -50,16 +51,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `dydx-v4-proto, dydx_v4_proto, dydxprotocol-v4-proto-py, dydxprotocol_v4_proto_py, v4-proto, v4_proto` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `dydx-v4-proto, dydx_v4_proto, dydxprotocol-v4-proto-py, dydxprotocol-v4-proto-py-bypass-sdk, dydxprotocol_v4_proto_py, v4-proto, v4_proto` can be installed with `conda`:
 
 ```
-conda install dydx-v4-proto dydx_v4_proto dydxprotocol-v4-proto-py dydxprotocol_v4_proto_py v4-proto v4_proto
+conda install dydx-v4-proto dydx_v4_proto dydxprotocol-v4-proto-py dydxprotocol-v4-proto-py-bypass-sdk dydxprotocol_v4_proto_py v4-proto v4_proto
 ```
 
 or with `mamba`:
 
 ```
-mamba install dydx-v4-proto dydx_v4_proto dydxprotocol-v4-proto-py dydxprotocol_v4_proto_py v4-proto v4_proto
+mamba install dydx-v4-proto dydx_v4_proto dydxprotocol-v4-proto-py dydxprotocol-v4-proto-py-bypass-sdk dydxprotocol_v4_proto_py v4-proto v4_proto
 ```
 
 It is possible to list all of the versions of `dydx-v4-proto` available on your platform with `conda`:
