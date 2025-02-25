@@ -50,7 +50,7 @@ source:
 
 build:
   noarch: python
-  number: 27
+  number: 1
 
 requirements:
   build:
@@ -67,6 +67,36 @@ requirements:
 outputs:
   - name: dydxprotocol-v4-proto-py
     script: install-py.sh
+    build:
+      noarch: python
+    requirements:
+      host:
+        - pip
+        - python >=3.9
+        - setuptools
+      run:
+        - grpcio-tools >=1.54
+        - grpcio >=1.54
+        - protobuf >=4.23
+        - python >=3.9
+    test:
+      imports:
+        - v4_proto
+      requires:
+        - pip
+        - python
+      commands:
+        - pip check
+        {% for dir in dydxprotocol_py_files %}
+          {% for subfile in dydxprotocol_py_files[dir] %}
+        - test -f $PREFIX/lib/python*/site-packages/v4_proto/{{ dir }}/{{ subfile }}.py
+        - test -f $PREFIX/lib/python*/site-packages/v4_proto/{{ dir }}/{{ subfile }}.pyi
+        - test -f $PREFIX/lib/python*/site-packages/v4_proto/{{ dir }}/{{ subfile }}_grpc.py
+          {% endfor %}
+        {% endfor %}
+
+  - name: dydxprotocol-v4-proto-py-bypass-sdk
+    script: install-py-bypass-sdk.sh
     build:
       noarch: python
     requirements:

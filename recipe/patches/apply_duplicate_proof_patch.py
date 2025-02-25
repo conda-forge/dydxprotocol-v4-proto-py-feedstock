@@ -1,87 +1,103 @@
 #!/usr/bin/env python3
-"""
-apply_dummy_field_patch.py
+r"""
+patch_generated_proto_list.py
 
-This helper script patches a generated Protobuf file (e.g.,
-v4_proto/v4_proto_amino/amino_pb2.py) to modify its descriptor registration.
-Instead of directly calling:
+This script patches a generated Protobuf Python file to bypass duplicate descriptor
+registration errors. It does so by reading a list of descriptor names (as a JSON array)
+from a file (the "list file"). Then, for each occurrence of:
 
-    DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'...')
+    DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(<serialized_bytes>)
 
-this script replaces that call with code that:
-  1. Parses the original serialized FileDescriptorProto,
-  2. Adds a dummy uninterpreted option (dummy field),
-  3. Reserializes the descriptor, and
-  4. Calls AddSerializedFile with the modified bytes.
+the script checks if any descriptor name from the list is found in the serialized literal.
+If a match is found, it replaces the registration call with a try/except block that first
+attempts to find the descriptor by name via FindFileByName() and falls back to AddSerializedFile().
 
 Usage:
-    python apply_dummy_field_patch.py path/to/your/proto_file.py
+    python patch_generated_proto_list.py --file path/to/generated_proto.py --list_file descriptors.json
+
+For example, if descriptors.json contains:
+    ["amino/amino.proto", "dydx_v4_ns_amino/dydx_v4_ns_amino.proto"]
+
+and a generated file contains:
+    DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x19amino/amino.proto\x12...')
+the script will replace it with:
+
+    try:
+        DESCRIPTOR = _descriptor_pool.Default().FindFileByName("amino/amino.proto")
+    except KeyError:
+        DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x19amino/amino.proto\x12...')
+
+This helps bypass duplicate registration errors.
 """
 
 import re
+import argparse
+import json
 import sys
 import os
 
+def patch_file(file_path):
+    """Patch the generated proto file using the descriptor list."""
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+    except Exception as e:
+        print(f"Error reading file {file_path}: {e}", file=sys.stderr)
+        sys.exit(1)
 
-def apply_patch(file_path):
-    # Read the original file content.
-    with open(file_path, 'r', encoding='utf-8') as f:
-        content = f.read()
-
-    # Regular expression to capture the call to AddSerializedFile with a bytes literal.
-    # This regex assumes the generated code uses a single-quoted bytes literal.
+    # Regex to capture the call to AddSerializedFile:
+    # It matches lines like:
+    #   DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(<serialized_bytes>)
     pattern = re.compile(
-        r'(DESCRIPTOR\s*=\s*_descriptor_pool\.Default\(\)\.AddSerializedFile\()'  # Match beginning
-        r"(b'(?:\\.|[^'])*')"  # Capture the bytes literal (non-greedy)
-        r'(\))',  # Match the closing parenthesis
+        r'(DESCRIPTOR\s*=\s*_descriptor_pool\.Default\(\)\.AddSerializedFile\()'  # group 1: before literal
+        r'(.*?)'   # group 2: the serialized literal (non-greedy)
+        r'(\))',   # group 3: closing parenthesis
         re.DOTALL
     )
 
-    def replacement(match):
-        original_literal = match.group(2)
-        # Build the replacement block.
-        # This block imports FileDescriptorProto, parses the original bytes,
-        # adds a dummy uninterpreted option, reserializes, and registers the new descriptor.
+    def replacement(match, descriptor_key=None):
+        original_literal = match.group(2).strip()
+        if descriptor_key is None:
+            return match.group(0)
         new_block = (
-                'from google.protobuf.descriptor_pb2 import FileDescriptorProto\n'
-                '_original_serialized = ' + original_literal + '\n'
-                                                               'fd_proto = FileDescriptorProto()\n'
-                                                               'fd_proto.ParseFromString(_original_serialized)\n'
-                                                               'dydx_v4_proto_option = fd_proto.options.uninterpreted_option.add()\n'
-                                                               'dydx_v4_proto_name_part = dydx_v4_proto_option.name.add()\n'
-                                                               'dydx_v4_proto_name_part.name_part = "dydx_v4_proto_field"\n'
-                                                               'dydx_v4_proto_name_part.is_extension = False\n'
-                                                               'dydx_v4_proto_option.string_value = b"dydx_v4_proto"\n'
-                                                               '_new_serialized = fd_proto.SerializeToString()\n'
-                                                               'DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(_new_serialized)'
+            'try:\n'
+            '    DESCRIPTOR = _descriptor_pool.Default().FindFileByName("' + descriptor_key + '")\n'
+            'except KeyError:\n'
+            '    DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(' + original_literal + ')'
         )
         return new_block
 
-    new_content, count = pattern.subn(replacement, content)
+    # Find the first descriptor from the list that appears in the content.
+    # descriptor_key = next((d for d in descriptor_list if f"source: {d}" in content), None)
+    descriptor_key_re = re.compile(r'# source: (.*\.proto)')
+    search_key = descriptor_key_re.search(content)
+    descriptor_key = search_key.group(1) if search_key else None
 
-    if count == 0:
-        print("No patch applied. Pattern not found in file.")
-    else:
-        print(f"Patch applied {count} time(s).")
+    if descriptor_key is None:
+        return
 
-    # Write the modified content back to the file.
-    with open(file_path, 'w', encoding='utf-8') as f:
-        f.write(new_content)
-    print(f"File '{file_path}' updated successfully.")
+    new_content, count = pattern.subn(lambda m: replacement(m, descriptor_key), content)
 
+    try:
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(new_content)
+    except Exception as e:
+        print(f"Error writing file {file_path}: {e}", file=sys.stderr)
+        sys.exit(1)
+    # print(f"File '{file_path}' updated successfully.")
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python apply_dummy_field_patch.py <path_to_generated_proto_file>")
+    parser = argparse.ArgumentParser(
+        description="Patch generated Protobuf Python files using a list of descriptor names to bypass duplicate registration errors."
+    )
+    parser.add_argument("--file", required=True, help="Path to the generated .py file to patch")
+    args = parser.parse_args()
+
+    if not os.path.isfile(args.file):
+        print(f"Error: File '{args.file}' does not exist.", file=sys.stderr)
         sys.exit(1)
 
-    file_path = sys.argv[1]
-    if not os.path.isfile(file_path):
-        print(f"Error: File '{file_path}' does not exist.")
-        sys.exit(1)
-
-    apply_patch(file_path)
-
+    patch_file(args.file)
 
 if __name__ == "__main__":
     main()
