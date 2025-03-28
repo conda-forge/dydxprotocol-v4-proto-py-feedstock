@@ -1,6 +1,43 @@
 {% set name = "dydxprotocol-v4-proto-py" %}
 {% set version = "8.0.9" %}
 
+{% set dydxprotocol_py_files = {
+  "dydxprotocol/accountplus": [ "accountplus_pb2", "genesis_pb2", "models_pb2", "params_pb2", "query_pb2", "tx_pb2" ],
+  "dydxprotocol/affiliates": [ "affiliates_pb2", "genesis_pb2", "query_pb2", "tx_pb2" ],
+  "dydxprotocol/assets": [ "asset_pb2", "genesis_pb2", "query_pb2", "tx_pb2" ],
+  "dydxprotocol/blocktime": [ "blocktime_pb2", "genesis_pb2", "params_pb2", "query_pb2", "tx_pb2" ],
+  "dydxprotocol/bridge": [ "bridge_event_info_pb2", "bridge_event_pb2", "genesis_pb2", "params_pb2", "query_pb2",
+                           "tx_pb2" ],
+  "dydxprotocol/clob": [ "block_rate_limit_config_pb2", "clob_pair_pb2", "equity_tier_limit_config_pb2",
+                         "finalize_block_pb2", "genesis_pb2", "liquidations_config_pb2", "liquidations_pb2",
+                         "matches_pb2", "mev_pb2", "operation_pb2", "order_pb2", "order_removals_pb2",
+                         "process_proposer_matches_events_pb2", "query_pb2", "streaming_pb2", "tx_pb2" ],
+  "dydxprotocol/delaymsg": [ "block_message_ids_pb2", "delayed_message_pb2", "genesis_pb2", "query_pb2", "tx_pb2" ],
+  "dydxprotocol/epochs": [ "epoch_info_pb2", "genesis_pb2", "query_pb2" ],
+  "dydxprotocol/feetiers": [ "genesis_pb2", "params_pb2", "query_pb2", "tx_pb2" ],
+  "dydxprotocol/govplus": [ "genesis_pb2", "query_pb2", "tx_pb2" ],
+  "dydxprotocol/indexer/events": [ "events_pb2" ],
+  "dydxprotocol/indexer/indexer_manager": [ "event_pb2" ],
+  "dydxprotocol/indexer/off_chain_updates": [ "off_chain_updates_pb2" ],
+  "dydxprotocol/indexer/protocol/v1": [ "clob_pb2", "perpetual_pb2", "subaccount_pb2", "vault_pb2" ],
+  "dydxprotocol/indexer/redis": [ "redis_order_pb2" ],
+  "dydxprotocol/indexer/shared": [ "removal_reason_pb2" ],
+  "dydxprotocol/indexer/socks": [ "messages_pb2" ],
+  "dydxprotocol/listing": [ "genesis_pb2", "params_pb2", "query_pb2", "tx_pb2" ],
+  "dydxprotocol/perpetuals": [ "genesis_pb2", "params_pb2", "perpetual_pb2", "query_pb2", "tx_pb2" ],
+  "dydxprotocol/prices": [ "market_param_pb2", "market_price_pb2", "query_pb2", "streaming_pb2", "tx_pb2" ],
+  "dydxprotocol/ratelimit": [ "capacity_pb2", "genesis_pb2", "limit_params_pb2", "pending_send_packet_pb2",
+                              "query_pb2", "tx_pb2" ],
+  "dydxprotocol/revshare": [ "genesis_pb2", "params_pb2", "query_pb2", "revshare_pb2", "tx_pb2" ],
+  "dydxprotocol/rewards": [ "genesis_pb2", "params_pb2", "query_pb2", "reward_share_pb2", "tx_pb2" ],
+  "dydxprotocol/sending": [ "genesis_pb2", "query_pb2", "transfer_pb2", "tx_pb2" ],
+  "dydxprotocol/stats": [ "genesis_pb2", "params_pb2", "query_pb2", "stats_pb2", "tx_pb2" ],
+  "dydxprotocol/subaccounts": [ "asset_position_pb2", "genesis_pb2", "perpetual_position_pb2", "query_pb2",
+                                "streaming_pb2", "subaccount_pb2" ],
+  "dydxprotocol/vault": [ "genesis_pb2", "params_pb2", "query_pb2", "share_pb2", "tx_pb2", "vault_pb2" ],
+  "dydxprotocol/vest": [ "genesis_pb2", "query_pb2", "tx_pb2", "vest_entry_pb2" ],
+}%}
+
 package:
   name: dydxprotocol-v4-proto-split
   version: {{ version }}
@@ -13,7 +50,7 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -47,10 +84,46 @@ outputs:
         - v4_proto
       requires:
         - pip
+        - python
       commands:
         - pip check
-      downstreams:
-        - dydx-v4-client
+        {% for dir in dydxprotocol_py_files %}
+          {% for subfile in dydxprotocol_py_files[dir] %}
+        - test -f $PREFIX/lib/python*/site-packages/v4_proto/{{ dir }}/{{ subfile }}.py
+        - test -f $PREFIX/lib/python*/site-packages/v4_proto/{{ dir }}/{{ subfile }}.pyi
+        - test -f $PREFIX/lib/python*/site-packages/v4_proto/{{ dir }}/{{ subfile }}_grpc.py
+          {% endfor %}
+        {% endfor %}
+
+  - name: dydxprotocol-v4-proto-py-bypass-sdk
+    script: install-py-bypass-sdk.sh
+    build:
+      noarch: python
+    requirements:
+      host:
+        - pip
+        - python >=3.9
+        - setuptools
+      run:
+        - grpcio-tools >=1.54
+        - grpcio >=1.54
+        - protobuf >=4.23
+        - python >=3.9
+    test:
+      imports:
+        - v4_proto
+      requires:
+        - pip
+        - python
+      commands:
+        - pip check
+        {% for dir in dydxprotocol_py_files %}
+          {% for subfile in dydxprotocol_py_files[dir] %}
+        - test -f $PREFIX/lib/python*/site-packages/v4_proto/{{ dir }}/{{ subfile }}.py
+        - test -f $PREFIX/lib/python*/site-packages/v4_proto/{{ dir }}/{{ subfile }}.pyi
+        - test -f $PREFIX/lib/python*/site-packages/v4_proto/{{ dir }}/{{ subfile }}_grpc.py
+          {% endfor %}
+        {% endfor %}
 
   # - Naming conversion
   - name: dydxprotocol_v4_proto_py
