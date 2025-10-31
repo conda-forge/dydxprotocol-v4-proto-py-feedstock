@@ -35,7 +35,7 @@ outputs:
     requirements:
       host:
         - pip
-        - python {{ python_min }}
+        - python {{ python_min }}.*
         - setuptools
       run:
         - grpcio-tools >=1.54
@@ -47,7 +47,7 @@ outputs:
         - v4_proto
       requires:
         - pip
-        - python {{ python_min }}
+        - python {{ python_min }}.*
       commands:
         - pip check
       downstreams:
@@ -65,7 +65,7 @@ outputs:
         - v4_proto
       requires:
         - pip
-        - python {{ python_min }}
+        - python {{ python_min }}.*
       commands:
         - pip check
 
@@ -81,7 +81,7 @@ outputs:
         - v4_proto
       requires:
         - pip
-        - python {{ python_min }}
+        - python {{ python_min }}.*
       commands:
         - pip check
 
@@ -97,7 +97,7 @@ outputs:
         - v4_proto
       requires:
         - pip
-        - python {{ python_min }}
+        - python {{ python_min }}.*
       commands:
         - pip check
 
@@ -113,7 +113,7 @@ outputs:
         - v4_proto
       requires:
         - pip
-        - python {{ python_min }}
+        - python {{ python_min }}.*
       commands:
         - pip check
 
@@ -129,7 +129,7 @@ outputs:
         - v4_proto
       requires:
         - pip
-        - python {{ python_min }}
+        - python {{ python_min }}.*
       commands:
         - pip check
 
