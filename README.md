@@ -50,16 +50,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `dydx-v4-proto, dydx_v4_proto, dydxprotocol-v4-proto-py, dydxprotocol_v4_proto_py, v4-proto, v4_proto` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `dydx-v4-proto, dydx_v4_proto, dydxprotocol-v4-proto-py, dydxprotocol-v4-proto-py-bypass-sdk, dydxprotocol_v4_proto_py, v4-proto, v4_proto` can be installed with `conda`:
 
 ```
-conda install dydx-v4-proto dydx_v4_proto dydxprotocol-v4-proto-py dydxprotocol_v4_proto_py v4-proto v4_proto
+conda install dydx-v4-proto dydx_v4_proto dydxprotocol-v4-proto-py dydxprotocol-v4-proto-py-bypass-sdk dydxprotocol_v4_proto_py v4-proto v4_proto
 ```
 
 or with `mamba`:
 
 ```
-mamba install dydx-v4-proto dydx_v4_proto dydxprotocol-v4-proto-py dydxprotocol_v4_proto_py v4-proto v4_proto
+mamba install dydx-v4-proto dydx_v4_proto dydxprotocol-v4-proto-py dydxprotocol-v4-proto-py-bypass-sdk dydxprotocol_v4_proto_py v4-proto v4_proto
 ```
 
 It is possible to list all of the versions of `dydx-v4-proto` available on your platform with `conda`:

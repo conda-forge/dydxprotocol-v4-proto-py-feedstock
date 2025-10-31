@@ -9,29 +9,48 @@
  proto-format:
 -	@$(protoImage) find ./proto -name "*.proto" -exec clang-format -i {} \;
 +	@find ./proto -name "*.proto" -exec clang-format -i {} \;
-
+ 
  proto-lint:
 -	@$(protoImage) buf lint --error-format=json
 +	@buf lint --error-format=json
-
+ 
 @@ -13,3 +8,3 @@
  	@echo "Generating Protobuf files"
 -	@$(protoImage) sh ./protocol/scripts/protocgen.sh
 +	@sh ./protocol/scripts/protocgen.sh
-
+ 
 @@ -17,3 +12,3 @@
  	@rm -rf ./.proto-export
 -	@$(protoImage) buf breaking --against .git#branch=$$(git merge-base HEAD origin/main)
 +	@buf breaking --against .git#branch=$$(git merge-base HEAD origin/main)
-
-@@ -35,3 +30,3 @@
- 	@for dir in $(PROTO_DIRS); do \
+ 
+@@ -26,4 +21,2 @@
+ 
+-PROTO_DIRS=$(shell find .proto-export-deps -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq)
+-
+ # The perl replace script is used to fix import statements (hacking around https://github.com/protocolbuffers/protobuf/issues/2283).
+@@ -34,11 +27,15 @@
+ 	@mkdir -p ./v4-proto-py/v4_proto
+-	@for dir in $(PROTO_DIRS); do \
 -		python3 -m grpc_tools.protoc \
-+		${PYTHON} -m grpc_tools.protoc \
- 		-I .proto-export-deps \
-@@ -42,3 +37,4 @@
- 	done;
+-		-I .proto-export-deps \
+-		--python_out=./v4-proto-py/v4_proto \
+-		--pyi_out=./v4-proto-py/v4_proto \
+-		--grpc_python_out=./v4-proto-py/v4_proto \
+-		$$(find ./$${dir} -type f -name '*.proto'); \
+-	done;
 -	perl -i -pe 's/^from (?!google\.protobuf)([^ ]*) import ([^ ]*)_pb2 as ([^ ]*)$$/from v4_proto.\1 import \2_pb2 as \3/' $$(find ./v4-proto-py/v4_proto -type f \( -name '*_pb2.py' -o -name '*_pb2_grpc.py' -o -name '*_pb2.pyi' -o -name '*_pb2_grpc.pyi' \))
-+	find ./v4-proto-py/v4_proto -type f \( -name '*_pb2.py' -o -name '*_pb2_grpc.py' -o -name '*_pb2.pyi' -o -name '*_pb2_grpc.pyi' \) | xargs -n 1 perl -i.bak -pe 's@^from (?!google\.protobuf)([^ ]*) import ([^ ]*)_pb2 as ([^ ]*)$$@from v4_proto.\1 import \2_pb2 as \3@'
-+	find ./v4-proto-py/v4_proto -type f -name '*.bak' -delete
-
++	@echo "Compiling protos..."
++	@(cd .proto-export-deps && ${PYTHON} -m grpc_tools.protoc \
++		-I . \
++		--python_out=../v4-proto-py/v4_proto \
++		--pyi_out=../v4-proto-py/v4_proto \
++		--grpc_python_out=../v4-proto-py/v4_proto \
++		$$(find . -name '*.proto'))
++	@perl -i -pe 's/^from (?!google\.protobuf)([^ ]*) import ([^ ]*)_pb2 as ([^ ]*)$$/from v4_proto.\1 import \2_pb2 as \3/' $$(find ./v4-proto-py/v4_proto -type f \( -name '*_pb2.py' -o -name '*_pb2_grpc.py' -o -name '*_pb2.pyi' -o -name '*_pb2_grpc.pyi' \))
++	@for file in $$(find ./v4-proto-py/v4_proto -type f \( -name '*_pb2.py' -o -name '*_pb2_grpc.py' \)); do \
++		${PYTHON} ${RECIPE_DIR}/patches/apply_duplicate_proof_patch.py --file "$$file"; \
++	done
++	@find ./v4-proto-py/v4_proto -type d -exec touch {}/__init__.py \;
++	@find ./v4-proto-py/v4_proto -type f -name '*.bak' -delete || true
+ 
