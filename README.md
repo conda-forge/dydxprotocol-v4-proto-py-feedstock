@@ -34,12 +34,11 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-dydx--v4--proto-green.svg)](https://anaconda.org/conda-forge/dydx-v4-proto) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/dydx-v4-proto.svg)](https://anaconda.org/conda-forge/dydx-v4-proto) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/dydx-v4-proto.svg)](https://anaconda.org/conda-forge/dydx-v4-proto) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/dydx-v4-proto.svg)](https://anaconda.org/conda-forge/dydx-v4-proto) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-dydx_v4_proto-green.svg)](https://anaconda.org/conda-forge/dydx_v4_proto) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/dydx_v4_proto.svg)](https://anaconda.org/conda-forge/dydx_v4_proto) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/dydx_v4_proto.svg)](https://anaconda.org/conda-forge/dydx_v4_proto) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/dydx_v4_proto.svg)](https://anaconda.org/conda-forge/dydx_v4_proto) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-dydx__v4__proto-green.svg)](https://anaconda.org/conda-forge/dydx_v4_proto) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/dydx_v4_proto.svg)](https://anaconda.org/conda-forge/dydx_v4_proto) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/dydx_v4_proto.svg)](https://anaconda.org/conda-forge/dydx_v4_proto) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/dydx_v4_proto.svg)](https://anaconda.org/conda-forge/dydx_v4_proto) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-dydxprotocol--v4--proto--py-green.svg)](https://anaconda.org/conda-forge/dydxprotocol-v4-proto-py) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/dydxprotocol-v4-proto-py.svg)](https://anaconda.org/conda-forge/dydxprotocol-v4-proto-py) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/dydxprotocol-v4-proto-py.svg)](https://anaconda.org/conda-forge/dydxprotocol-v4-proto-py) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/dydxprotocol-v4-proto-py.svg)](https://anaconda.org/conda-forge/dydxprotocol-v4-proto-py) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-dydxprotocol--v4--proto--py--bypass--sdk-green.svg)](https://anaconda.org/conda-forge/dydxprotocol-v4-proto-py-bypass-sdk) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/dydxprotocol-v4-proto-py-bypass-sdk.svg)](https://anaconda.org/conda-forge/dydxprotocol-v4-proto-py-bypass-sdk) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/dydxprotocol-v4-proto-py-bypass-sdk.svg)](https://anaconda.org/conda-forge/dydxprotocol-v4-proto-py-bypass-sdk) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/dydxprotocol-v4-proto-py-bypass-sdk.svg)](https://anaconda.org/conda-forge/dydxprotocol-v4-proto-py-bypass-sdk) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-dydxprotocol_v4_proto_py-green.svg)](https://anaconda.org/conda-forge/dydxprotocol_v4_proto_py) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/dydxprotocol_v4_proto_py.svg)](https://anaconda.org/conda-forge/dydxprotocol_v4_proto_py) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/dydxprotocol_v4_proto_py.svg)](https://anaconda.org/conda-forge/dydxprotocol_v4_proto_py) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/dydxprotocol_v4_proto_py.svg)](https://anaconda.org/conda-forge/dydxprotocol_v4_proto_py) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-dydxprotocol__v4__proto__py-green.svg)](https://anaconda.org/conda-forge/dydxprotocol_v4_proto_py) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/dydxprotocol_v4_proto_py.svg)](https://anaconda.org/conda-forge/dydxprotocol_v4_proto_py) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/dydxprotocol_v4_proto_py.svg)](https://anaconda.org/conda-forge/dydxprotocol_v4_proto_py) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/dydxprotocol_v4_proto_py.svg)](https://anaconda.org/conda-forge/dydxprotocol_v4_proto_py) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-v4--proto-green.svg)](https://anaconda.org/conda-forge/v4-proto) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/v4-proto.svg)](https://anaconda.org/conda-forge/v4-proto) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/v4-proto.svg)](https://anaconda.org/conda-forge/v4-proto) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/v4-proto.svg)](https://anaconda.org/conda-forge/v4-proto) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-v4_proto-green.svg)](https://anaconda.org/conda-forge/v4_proto) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/v4_proto.svg)](https://anaconda.org/conda-forge/v4_proto) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/v4_proto.svg)](https://anaconda.org/conda-forge/v4_proto) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/v4_proto.svg)](https://anaconda.org/conda-forge/v4_proto) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-v4__proto-green.svg)](https://anaconda.org/conda-forge/v4_proto) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/v4_proto.svg)](https://anaconda.org/conda-forge/v4_proto) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/v4_proto.svg)](https://anaconda.org/conda-forge/v4_proto) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/v4_proto.svg)](https://anaconda.org/conda-forge/v4_proto) |
 
 Installing dydxprotocol-v4-proto-py
 ===================================
@@ -110,12 +109,12 @@ it is possible to build and upload installable packages to the
 [conda-forge](https://anaconda.org/conda-forge) [anaconda.org](https://anaconda.org/)
 channel for Linux, Windows and OSX respectively.
 
-To manage the continuous integration and simplify feedstock maintenance
+To manage the continuous integration and simplify feedstock maintenance,
 [conda-smithy](https://github.com/conda-forge/conda-smithy) has been developed.
 Using the ``conda-forge.yml`` within this repository, it is possible to re-render all of
 this feedstock's supporting files (e.g. the CI configuration files) with ``conda smithy rerender``.
 
-For more information please check the [conda-forge documentation](https://conda-forge.org/docs/).
+For more information, please check the [conda-forge documentation](https://conda-forge.org/docs/).
 
 Terminology
 ===========
@@ -142,7 +141,7 @@ merged, the recipe will be re-built and uploaded automatically to the
 everybody to install and use from the `conda-forge` channel.
 Note that all branches in the conda-forge/dydxprotocol-v4-proto-py-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
-on branches in forks and branches in the main repository should only be used to
+on branches in forks, and branches in the main repository should only be used to
 build distinct package versions.
 
 In order to produce a uniquely identifiable distribution:
